@@ -15,9 +15,10 @@ class Snake:
         self.GRID_SIZE = GRID_SIZE
 
     def check_out(self):
+        print(self.body[0])
         if (
-            self.body[0][0] > 20
-            or self.body[0][1] > 20
+            self.body[0][0] >= 20
+            or self.body[0][1] >= 20
             or self.body[0][0] < 0
             or self.body[0][1] < 0
         ):
