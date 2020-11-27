@@ -13,9 +13,53 @@ class Snake:
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT
         self.GRID_SIZE = GRID_SIZE
+        self.score = 0
 
+    def check_boundary(self, position):
+        if position[0] >= 20 or position[0] < 0 or position[1] >= 20 or position[1] < 0:
+            return True 
+        else:
+            return False
+
+    def check_color(self, position):
+        if self.window.get_at((int(position[0]*self.GRID_SIZE + 5), int(position[1]*self.GRID_SIZE) + 5)) == (0,255,0,255):
+            return True 
+        else:
+            return False
+
+    def return_inputs(self):
+        data = []
+        #LEFT
+        tmp_direction = self.body[0] + Vector2(-1, 0)
+        if self.check_boundary(tmp_direction) or self.check_color(tmp_direction):
+            data.append(1)
+        else:
+            data.append(0)
+        #TOP
+        tmp_direction = self.body[0] + Vector2(0, -1)
+        if self.check_boundary(tmp_direction) or self.check_color(tmp_direction):
+            data.append(1)
+        else:
+            data.append(0)
+        #RIGHT
+        tmp_direction = self.body[0] + Vector2(1, 0)
+        if self.check_boundary(tmp_direction) or self.check_color(tmp_direction):
+            data.append(1)
+        else:
+            data.append(0)
+        #DOWN
+        tmp_direction = self.body[0] + Vector2(0, 1)
+        if self.check_boundary(tmp_direction) or self.check_color(tmp_direction):
+            data.append(1)
+        else:
+            data.append(0)
+
+        data.append(self.body[0][0] / 20)
+        data.append(self.body[0][1] / 20)
+        data.append(self.food.pos[0] / 20)
+        data.append(self.food.pos[1] / 20)
+        return data
     def check_out(self):
-        print(self.body[0])
         if (
             self.body[0][0] >= 20
             or self.body[0][1] >= 20
